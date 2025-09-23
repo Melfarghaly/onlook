@@ -8,10 +8,13 @@ extra_search_path = ["public"]
 max_rows = 100
 
 [auth]
-site_url = "https://onlook.com"
 additional_redirect_urls = [
     "http://localhost:3000",
     "http://localhost:3000/auth/callback",
+    "https://https://onlook-client-fnlw0j3mc-mohameds-projects-3b0e4011.vercel.app/",
+    "https://https://onlook-client-fnlw0j3mc-mohameds-projects-3b0e4011.vercel.app/auth/callback",
+    "https://onlook.com",
+    "https://onlook.com/auth/callback"
 ]
 jwt_expiry = 36000
 
