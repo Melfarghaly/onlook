@@ -21,7 +21,7 @@ export async function GET(request: Request) {
                 return NextResponse.redirect(`${origin}/auth/auth-code-error`);
             }
 
-            trackEvent({
+            await trackEvent({
                 distinctId: data.user.id,
                 event: 'user_signed_in',
                 properties: {
