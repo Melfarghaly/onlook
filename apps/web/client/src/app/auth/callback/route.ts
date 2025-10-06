@@ -1,3 +1,9 @@
+import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
+import { api } from '~/trpc/server';
+import { Routes } from '@/utils/constants';
+import { trackEvent } from '@/utils/analytics/server';
+
 export async function GET(request: Request) {
   try {
     const { searchParams, origin } = new URL(request.url);
@@ -21,22 +27,6 @@ export async function GET(request: Request) {
     if (!user) {
       console.error(`Failed to upsert user: ${data.user.id}`);
       return NextResponse.redirect(`${origin}/auth/auth-code-error`);
-    }
-
-    // Safe tracking
-    try {
-      await trackEvent({
-        distinctId: data.user.id,
-        event: 'user_signed_in',
-        properties: {
-          name: data.user.user_metadata?.name,
-          email: data.user.email,
-          avatar_url: data.user.user_metadata?.avatar_url,
-          $set_once: { signup_date: new Date().toISOString() }
-        }
-      });
-    } catch (err) {
-      console.error("TrackEvent failed:", err);
     }
 
     const redirectUrl = process.env.NEXT_PUBLIC_URL || origin;
