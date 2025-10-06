@@ -20,7 +20,7 @@ export async function GET(request: Request) {
                 console.error(`Failed to create user for id: ${data.user.id}`, { user });
                 return NextResponse.redirect(`${origin}/auth/auth-code-error`);
             }
-
+/*
             await trackEvent({
                 distinctId: data.user.id,
                 event: 'user_signed_in',
@@ -33,7 +33,7 @@ export async function GET(request: Request) {
                     }
                 }
             });
-
+*/
             const redirectUrl = process.env.NEXT_PUBLIC_URL || origin;
             return NextResponse.redirect(`${redirectUrl}${Routes.AUTH_REDIRECT}`);
         }
